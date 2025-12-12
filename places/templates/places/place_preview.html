@@ -1,0 +1,29 @@
+<div class="place-card">
+    <div class="place-image">
+        <span class="place-icon">{{ place.get_place_type_display }}</span>
+    </div>
+    <div class="place-content">
+        <h3><a href="{% url 'place_detail' place.pk %}">{{ place.name }}</a></h3>
+        <p class="place-type">{{ place.get_place_type_display }}</p>
+        <p class="place-description">{{ place.get_preview_description }}</p>
+        <p class="place-location">
+            {% if place.location %}
+                📍 {{ place.location }}
+            {% else %}
+                🔒 Secret place👀
+            {% endif %}
+        </p>
+        <div class="place-rating">
+            <span class="stars">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= place.rating %}
+                        ★
+                    {% else %}
+                        <span class="empty">★</span>
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </div>
+        <p class="place-date">Додано: {{ place.created_at|date:"d.m.Y" }}</p>
+    </div>
+</div>

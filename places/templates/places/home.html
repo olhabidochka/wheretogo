@@ -1,0 +1,29 @@
+{% extends 'places/base.html' %}
+
+{% block title %}Головна - Мої улюблені місця{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <h2>Вітаємо на сайті ваших улюблених місць! 🎉</h2>
+    <p>Тут ви можете зберігати і знаходити найкращі місця для відпочинку</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-large">🎲 Куди піти сьогодні?</button>
+    </form>
+</div>
+
+{% if selected_place %}
+<div class="random-place-section">
+    <h2 style="text-align: center; color: #667eea; margin-bottom: 20px;">
+        ✨ Сьогодні радимо відвідати:
+    </h2>
+    <div class="selected-place">
+        {% include 'places/place_preview.html' with place=selected_place %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
