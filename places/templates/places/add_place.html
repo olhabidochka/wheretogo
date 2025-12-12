@@ -1,0 +1,83 @@
+{% extends 'places/base.html' %}
+
+{% block title %}Додати місце - Мої улюблені місця{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>➕ Додати нове улюблене місце</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Назва місця *</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <ul class="errorlist">
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.place_type.id_for_label }}">Тип місця *</label>
+            {{ form.place_type }}
+            {% if form.place_type.errors %}
+                <ul class="errorlist">
+                    {% for error in form.place_type.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.location.id_for_label }}">Локація</label>
+            {{ form.location }}
+            <p class="help-text">Необов'язкове поле. Залиште порожнім для "Secret place"</p>
+            {% if form.location.errors %}
+                <ul class="errorlist">
+                    {% for error in form.location.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.rating.id_for_label }}">Рейтинг (1-5) *</label>
+            {{ form.rating }}
+            <p class="help-text">Від 1 (не дуже) до 5 (чудово)</p>
+            {% if form.rating.errors %}
+                <ul class="errorlist">
+                    {% for error in form.rating.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.description.id_for_label }}">Опис *</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <ul class="errorlist">
+                    {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">💾 Зберегти</button>
+            <a href="{% url 'places_list' %}" class="btn btn-secondary">❌ Скасувати</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

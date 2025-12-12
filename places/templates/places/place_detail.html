@@ -1,0 +1,55 @@
+{% extends 'places/base.html' %}
+
+{% block title %}{{ place.name }} - Мої улюблені місця{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'places_list' %}" class="back-link">← Назад до списку</a>
+
+<div class="place-detail">
+    <div class="place-detail-header">
+        <h2>{{ place.name }}</h2>
+        <div class="stars" style="font-size: 1.5em; margin-top: 15px;">
+            {% for i in "12345" %}
+                {% if forloop.counter <= place.rating %}
+                    ★
+                {% else %}
+                    <span class="empty">★</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="place-detail-content">
+        <div class="place-meta">
+            <div class="meta-item">
+                <h4>Тип місця</h4>
+                <p>{{ place.get_place_type_display }}</p>
+            </div>
+
+            <div class="meta-item">
+                <h4>Локація</h4>
+                <p>
+                    {% if place.location %}
+                        📍 {{ place.location }}
+                    {% else %}
+                        🔒 Secret place👀
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="meta-item">
+                <h4>Дата додавання</h4>
+                <p>{{ place.created_at|date:"d.m.Y" }}</p>
+            </div>
+        </div>
+
+        <div class="description-section">
+            <h3>📝 Опис</h3>
+            <p>{{ place.description }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
